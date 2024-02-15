@@ -1,0 +1,661 @@
+@font-face {
+  font-family: 'Super Mario 256';
+  src: url('SuperMario256.ttf') format('truetype');
+}
+
+body {
+    background-image: url("source/fondo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Super Mario 256', sans-serif;
+    color: #26222A;
+  }
+
+/*CABECERA*/
+
+#cabecera {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; 
+}
+
+#logo {
+  height: 150px;
+}
+
+#titulo {
+  width: 270px;
+  padding-right: 40px;
+}
+
+#logoDiv {
+    display: flex;
+    align-items: center;
+}
+
+#cabeceraMedio {
+  display: table-column;
+  margin-top: -16px;
+  margin-left: 50px;
+}
+
+#winner {
+  display: initial;
+  transition: opacity 1s;
+  text-align: left;
+  font-size: 25px;
+}
+
+#fichas {
+  display: flex;
+  justify-content: space-between;
+}
+
+#reloj {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #02BE8A;
+  text-shadow: 0 0 10px #0DA643, 0 0 20px #0DA643, 0 0 30px #0DA643;
+  animation: neon-blink 2s ease-in-out infinite alternate-reverse;
+  margin-top: 43px;
+  margin-left: auto;
+}
+
+@keyframes neon-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+#derechaSuperior {
+  text-align: right;
+  margin-right: 40px;
+}
+
+#fichasTotales {
+  font-size: 40px;
+  color: #26222A;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+/*BOTONES*/
+
+#retirar, #musica, #borrarApuesta {
+  margin-top: 25px;
+  color: #0da643da;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.699);
+  transition: color 0.3s ease;
+}
+
+#comprar {
+  color: #26222A;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.15s;
+}
+
+#comprar, #retirar, #musica, #borrarApuesta {
+  border: 1px solid rgba(255, 255, 255, 0.582);
+  position: relative;
+  letter-spacing: 0.15em;
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  outline: none;
+  font-size: 20px;
+  font-family: 'Super Mario 256', sans-serif;
+}
+
+
+#comprar::after, #comprar::before {
+  border: 0;
+  content: "";
+  position: absolute;
+  height: 20%;
+  width: 5%;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: -2;
+  border-radius: 50%;
+}
+
+#comprar::before {
+  border: 0;
+  background-color: grey;
+  top: -0.2rem;
+  left: -0.45rem;
+  animation: topAnimation 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.25s infinite alternate;
+}
+
+#comprar::after {
+  background-color: #0DA643;
+  top: 1.95rem;
+  left: 12rem;
+  animation: bottomAnimation 2s cubic-bezier(0.80, -0.70, 0.265, 2.1) 0.5s infinite alternate;
+}
+
+#comprar:hover, #retirar:hover, #musica:hover, #borrarApuesta:hover {
+  color: white;
+}
+
+#comprar:hover::before, #comprar:hover::after {
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+  animation: none;
+}
+
+#comprar:hover::after {
+  left: 0rem;
+}
+
+#comprar:hover::before {
+  top: 0.25rem;
+  left: 0.175rem;
+}
+
+@keyframes topAnimation {
+  from {
+    transform: translate(0rem, 2rem);
+  }
+  to {
+    transform: translate(0rem, 0rem); /* Ajusta la distancia de animación */
+  }
+}
+
+@keyframes bottomAnimation {
+  from {
+    transform: translate(-11.5rem, 0); /* Ajusta la distancia de animación */
+  }
+  to {
+    transform: translate(0rem, 0);
+  }
+}
+
+/*PARTE CENTRAL*/
+
+#divRuleta {
+  margin-top: 50px;
+  position: relative; /* Agrega position: relative al contenedor */
+}
+
+#ruletaGif, #superpuestaImg {
+  border-bottom: 4px solid #0DA643;
+  border-right: 4px solid #0DA643;
+  height: 380px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#superpuestaImg {
+  border-bottom: 4px solid #0DA643;
+  border-right: 4px solid #0DA643;
+  height: 380px;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out; /* Transición al mostrar y ocultar */
+}
+
+.oculta {
+  opacity: 0;
+  pointer-events: none; /* Para que no sea clickeable cuando está oculta */
+  display: none;
+}
+
+#bodyDiv {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; 
+  grid-gap: 10px
+}
+
+#tablero {
+  display: flex;
+  align-items: center;
+  perspective: 1000px;
+  margin-left: 30px;
+  padding-top: 30px;  
+}
+
+#tableroTabla {
+  transform: rotateX(15deg);
+  border-collapse: collapse;
+/*box-shadow: 0 20px 10px #028672, 20px 0 10px #028672;*/
+}
+
+td {
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  font-weight: bold;
+  border: 4px solid #0DA643;
+  color: white;
+  font-size: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.special-cell, .special-cell0 {
+  background-color: #029e87c5;
+}
+
+.red, #celdaRoja {
+  background-color: #FE525A;
+  transition: background-color 0.3s ease;
+}
+
+.black, #celdaNegra{
+  background-color: #26222A;
+  transition: background-color 0.3s ease;
+}
+
+.brillante {
+  background-color: rgba(255, 255, 0, 0.744);
+}
+
+td:hover {
+  background-color: #ffffff;
+}
+
+.red:hover, #celdaRoja:hover {
+  background-color: #ffffff;
+  color: #FE525A;
+}
+
+.black:hover, #celdaNegra:hover {
+  background-color: #ffffff;
+  color: #26222A;
+}
+
+.special-cell:hover {
+  color: #029e87c5;
+}
+
+#celdaVaciaIzq, #celdaVaciaIzq2 {
+  background-color: transparent;
+  border-left: none;
+  border-bottom: none;
+}
+
+#celdaVaciaIzq2 {
+  border-top: none;
+}
+
+#celdaVaciaDer {
+  background-color: transparent;
+  border-right-color: #02BE8A;
+  border-bottom-color: #02BE8A;
+}
+
+/*IMG FICHAS*/
+
+.image-containerEspecial, .image-containerEspecial2, .image-containerEspecial3, .image-container{
+  justify-content: center;
+  position: absolute;
+  pointer-events: none;
+}
+
+.image-containerEspecial {
+  margin-top: -1%;
+  margin-left: 4%;
+}
+
+.image-containerEspecial2 {
+  margin-top: -1%;
+  margin-left: 10%;
+}
+
+.image-containerEspecial3{
+  margin-top: 2%;
+  margin-left: 1%;
+}
+
+.image-container{
+  margin-top: -1.5%;
+  margin-left: 0.6%;
+}
+
+.fichaCasilla {
+  width: auto;
+  height: 45px;
+}
+
+.numFicha {
+  color: #26222A;
+  font-size: 20px;
+  position: absolute;
+  top: -8%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+/*APUESTA*/
+
+#bet, #max {
+  font-size: 35px;
+  color: #26222A;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+#borrarApuestaDiv {
+  justify-content: center;
+  display: flex;
+}
+
+#borrarApuesta {
+  font-size:  25px;
+}
+
+/*BOTONES FICHAS*/
+.parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.botonesRedondos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  margin-top: 70px;
+  margin-bottom: 30px;
+}
+
+.botonesRedondos button {
+  background-color: #029e87c5;
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: 50px;
+  height: 70px;
+  width: 70px;
+  box-shadow: 0 2px 4px darkslategray;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+}
+
+.botonesRedondos button:active {
+  background-color: #029e87c5;
+  box-shadow: 0 0 2px darkslategray;
+  transform: translateY(2px);
+}
+
+#fichasCantidadIMG {
+  width: 150px;
+  justify-self: center;
+}
+
+#btnMenos {
+  align-self: center;
+  justify-self: end;
+}
+
+#btnMas {
+  align-self: center;
+  justify-self: start;
+}
+
+
+/*FOOTER*/
+
+#footer {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; 
+  font-size: 35px;
+  color: #26222A;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+#btnJugarYa, #progressBar {
+  display: flex;
+  justify-content: center;
+}
+
+#hotncold {
+  margin-top: 40px;
+  margin-left: 15px;
+}
+
+/*PROGRESS BAR*/
+
+#progressBar {
+  margin-bottom: 50px;
+  margin-top: 30px;
+}
+
+.ProgressBar {
+  display: block;
+  width: 700px;
+  height: 25px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.ProgressBar-background,
+.ProgressBar-percentage {
+  background: #fff;
+  height: 100%;
+}
+
+.ProgressBar-background {
+  opacity: 0.2;
+  width: 100%;
+}
+
+.ProgressBar-percentage {
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/*BOTON JUGAR YA*/
+
+:root {
+  --glow-color: #0DA643;
+}
+
+#jugarYa {
+  color: #26222A;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.603);
+  border-radius: 0.45em;
+  background: transparent;
+  font-family: 'Super Mario 256', sans-serif;
+  font-size: 45px;
+  padding: 10px 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+  animation: text-flicker 4s linear infinite, border-flicker 2s linear infinite;
+  transition: background-color 0.3s;
+}
+
+#jugarYa:hover {
+  background-color: #ffffffa2;
+}
+
+#jugarYa:hover::before {
+  filter: blur(1.5em);
+  opacity: 1;
+}
+
+#jugarYa:hover:after {
+  opacity: 1;
+}
+
+
+
+@keyframes text-flicker {
+  0% {
+    opacity: 0.1;
+  }
+
+  2% {
+    opacity: 1;
+  }
+
+  8% {
+    opacity: 0.1;
+  }
+
+  9% {
+    opacity: 1;
+  }
+
+  12% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0.7;
+  }
+  72% {
+    opacity: 0.2;
+  }
+
+  77% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes border-flicker {
+  0% {
+    opacity: 0.1;
+  }
+  2% {
+    opacity: 1;
+  }
+  4% {
+    opacity: 0.1;
+  }
+  8% {
+    opacity: 1;
+  }
+
+  29% {
+    opacity: 1;
+  }
+  36% {
+    opacity: 0.1;
+  }
+  38% {
+    opacity: 1;
+  }
+
+
+  70% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/*ULTIMOS NUMEROS*/
+
+#lastNumsTxt, #ultimoNumero, #lastNums {
+  text-align: center;
+  margin-top: -20px;
+}
+
+#ultimoNumero {
+  font-size: 70px;
+  margin-top: 20px;
+  color: white;
+}
+
+/*MODALES*/
+.modal {
+  display: none;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  background-color: #ffffffd0;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.botonesModal {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.botonModal {
+  display: inline-block;
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #0DA643;
+  color: #0DA643;
+  background-color: #ffffff;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.botonModal:hover {
+  background-color: #0DA643;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.pModal {
+  font-size: 40px;
+}
+
+.inputModal {
+  width: 90%;
+  height: 30px;
+  margin-top: 20px;
+  font-size: 20px;
+}
+

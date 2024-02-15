@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ruleta</title>
+    <link rel="stylesheet" type="text/css" href="Ruleta.css">
+</head>
+<body>
+    <div id="cabecera">
+        <div id="logoDiv">
+            <img id="logo" src="source/logo.png"/>
+            <img id ="titulo" src="source/titulo.png"/>
+        </div>
+        <div id="cabeceraMedio">
+            <div id="fichas">
+                <p id="fichasTotales">FICHAS: 100</p>
+                <p id="winner"></p>
+                <div id="reloj">00:00</div>
+            </div>
+            <button id="comprar"onclick="openModalIngresar()">Comprar fichas</button>
+
+        </div>
+
+        <div id="derechaSuperior">
+            <button id="retirar" onclick="openModalRetirar()">Retirar fichas</button>
+            <button id="musica" onclick="musicaFondo()">Reproducir musica</button>
+        </div>
+    </div>
+
+    <div id="bodyDiv">
+        <div id="divRuleta">
+            <img id="ruletaGif" src="source/ruleta.gif"/>
+            <img id="superpuestaImg" src="source/opcionesRuleta/ruletaImgNegro1.png" class="oculta"/>
+        </div>
+
+        <div id="tablero">
+            <table id="tableroTabla">
+                <tr>
+                    <td rowspan="3" id="0" class="special-cell0">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum0"></p>
+                            <img id="fichaCasilla0" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        0
+                    </td>
+                    <td class="red" id="3">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum3"></p>
+                            <img id="fichaCasilla3" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        3
+                    </td>
+                    <td class="black" id="6">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum6"></p>
+                            <img id="fichaCasilla6" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        6
+                    </td>
+                    <td class="red" id="9">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum9"></p>
+                            <img id="fichaCasilla9" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        9
+                    </td>
+                    <td class="red" id="12">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum12"></p>
+                            <img id="fichaCasilla12" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        12
+                    </td>
+                    <td class="black" id="15">    
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum15"></p>
+                            <img id="fichaCasilla15" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        15
+                    </td>
+                    <td class="red" id="18">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum18"></p>
+                            <img id="fichaCasilla18" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        18
+                    </td>
+                    <td class="red" id="21">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum21"></p>
+                            <img id="fichaCasilla21" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        21
+                    </td>
+                    <td class="black" id="24">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum24"></p>
+                            <img id="fichaCasilla24" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        24
+                    </td>
+                    <td class="red" id="27">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum27"></p>
+                            <img id="fichaCasilla27" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        27
+                    </td>
+                    <td class="red" id="30">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum30"></p>
+                            <img id="fichaCasilla30" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        30
+                    </td>
+                    <td class="black" id="33">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum33"></p>
+                            <img id="fichaCasilla33" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        33
+                    </td>
+                    <td class="red" id="36">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum36"></p>
+                            <img id="fichaCasilla36" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        36
+                    </td>
+                    <td class="special-cell" id="2to1.1">
+                        <div class="image-containerEspecial3">
+                            <p class="numFicha" id="cantFichaNum2to1.1"></p>
+                            <img id="fichaCasilla2to1.1" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        2 to 1
+                    </td>
+                </tr>
+                <tr>
+                    <td class="black" id="2">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum2"></p>
+                            <img id="fichaCasilla2" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        2
+                    </td>
+                    <td class="red" id="5">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum5"></p>
+                            <img id="fichaCasilla5" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        5
+                    </td>
+                    <td class="black" id="8">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum8"></p>
+                            <img id="fichaCasilla8" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        8
+                    </td>
+                    <td class="black" id="11">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum11"></p>
+                            <img id="fichaCasilla11" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        11
+                    </td>
+                    <td class="red" id="14">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum14"></p>
+                            <img id="fichaCasilla14" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        14
+                    </td>
+                    <td class="black" id="17">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum17"></p>
+                            <img id="fichaCasilla17" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        17
+                    </td>
+                    <td class="black" id="20">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum20"></p>
+                            <img id="fichaCasilla20" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        20
+                    </td>
+                    <td class="red" id="23">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum23"></p>
+                            <img id="fichaCasilla23" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        23
+                    </td>
+                    <td class="black" id="26">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum26"></p>
+                            <img id="fichaCasilla26" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        26
+                    </td>
+                    <td class="black" id="29">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum29"></p>
+                            <img id="fichaCasilla29" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        29
+                    </td>
+                    <td class="red" id="32">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum32"></p>
+                            <img id="fichaCasilla32" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        32
+                    </td>
+                    <td class="black" id="35">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum35"></p>
+                            <img id="fichaCasilla35" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        35
+                    </td>
+                    <td class="special-cell" id="2to1.2">
+                        <div class="image-containerEspecial3">
+                            <p class="numFicha" id="cantFichaNum2to1.2"></p>
+                            <img id="fichaCasilla2to1.2" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        2 to 1
+                    </td>
+                </tr>
+                <tr>
+                    <td class="red" id="1">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum1"></p>
+                            <img id="fichaCasilla1" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        1
+                    </td>
+                    <td class="black" id="4">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum4"></p>
+                            <img id="fichaCasilla4" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        4
+                    </td>
+                    <td class="red" id="7">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum7"></p>
+                            <img id="fichaCasilla7" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        7
+                    </td>
+                    <td class="black" id="10">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum10"></p>
+                            <img id="fichaCasilla10" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        10
+                    </td>
+                    <td class="black" id="13">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum13"></p>
+                            <img id="fichaCasilla13" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        13
+                    </td>
+                    <td class="red" id="16">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum16"></p>
+                            <img id="fichaCasilla16" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        16
+                    </td>
+                    <td class="red" id="19">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum19"></p>
+                            <img id="fichaCasilla19" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        19
+                    </td>
+                    <td class="black" id="22">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum22"></p>
+                            <img id="fichaCasilla22" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        22
+                    </td>
+                    <td class="red" id="25">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum25"></p>
+                            <img id="fichaCasilla25" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        25
+                    </td>
+                    <td class="black" id="28">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum28"></p>
+                            <img id="fichaCasilla28" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        28
+                    </td>
+                    <td class="black" id="31">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum31"></p>
+                            <img id="fichaCasilla31" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        31
+                    </td>
+                    <td class="red" id="34">
+                        <div class="image-container">
+                            <p class="numFicha" id="cantFichaNum34"></p>
+                            <img id="fichaCasilla34" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        34
+                    </td>
+                    <td class="special-cell" id="2to1.3">
+                        <div class="image-containerEspecial3">
+                            <p class="numFicha" id="cantFichaNum2to1.3"></p>
+                            <img id="fichaCasilla2to1.3" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        2 to 1
+                    </td>
+                </tr>
+                <tr>
+                    <td id="celdaVaciaIzq"></td>
+                    <td colspan="4" class="special-cell" id="1st12">
+                        <div class="image-containerEspecial2">
+                            <p class="numFicha" id="cantFichaNum1st12"></p>
+                            <img id="fichaCasilla1st12" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        1st 12
+                    </td>
+                    <td colspan="4" class="special-cell" id="2nd12">
+                        <div class="image-containerEspecial2">
+                            <p class="numFicha" id="cantFichaNum2nd12"></p>
+                            <img id="fichaCasilla2nd12" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        2nd 12
+                    </td>
+                    <td colspan="4" class="special-cell" id="3rd12">
+                        <div class="image-containerEspecial2">
+                            <p class="numFicha" id="cantFichaNum3rd12"></p>
+                            <img id="fichaCasilla3rd12" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        3rd 12
+                    </td>
+                    <td id="celdaVaciaDer"></td>
+                </tr>
+                <tr>
+                    <td id="celdaVaciaIzq2"></td>
+                    <td colspan="2" class="special-cell" id="1to18">
+                        <div class="image-containerEspecial">
+                            <p class="numFicha" id="cantFichaNum1to18"></p>
+                            <img id="fichaCasilla1to18" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        1 to 18
+                    </td>
+                    <td colspan="2" class="special-cell" id="EVEN">
+                        <div class="image-containerEspecial">
+                            <p class="numFicha" id="cantFichaNumEVEN"></p>
+                            <img id="fichaCasillaEVEN" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        EVEN
+                    </td>
+                    <td colspan="2" class="special-cell" id="celdaRoja">
+                        <div class="image-containerEspecial">
+                            <p class="numFicha" id="cantFichaNumceldaRoja"></p>
+                            <img id="fichaCasillaceldaRoja" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        Rojo
+                    </td>
+                    <td colspan="2" class="special-cell" id="celdaNegra">
+                        <div class="image-containerEspecial">
+                            <p class="numFicha" id="cantFichaNumceldaNegra"></p>
+                            <img id="fichaCasillaceldaNegra" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        Negro
+                    </td>
+                    <td colspan="2" class="special-cell" id="ODD">
+                        <div class="image-containerEspecial">
+                            <p class="numFicha" id="cantFichaNumODD"></p>
+                            <img id="fichaCasillaODD" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        ODD
+                    </td>
+                    <td colspan="2" class="special-cell" id="19to36">
+                        <div class="image-containerEspecial">
+                            <p class="numFicha" id="cantFichaNum19to36"></p>
+                            <img id="fichaCasilla19to36" class="fichaCasilla" src="source/1.png" hidden>
+                        </div>
+                        19 to 36
+                    </td>
+                    <td id="celdaVaciaDer"></td>
+                </tr>
+            </table>
+        </div>
+        <div id="centroDer">
+            <div id="apuestas">
+                <p id="bet">BET: </p>
+            </div>
+            <div id="borrarApuestaDiv">
+                <button id="borrarApuesta">Borrar apuesta</button>
+            </div>
+            <div class="botonesRedondos">
+                <button class="btnRedondo" id="btnMenos" onclick="reducirImagen()">-</button>
+                <img id="fichasCantidadIMG" src="source/fichasMenu/1.png">
+                <button class="btnRedondo" id="btnMas" onclick="aumentarImagen()">+</button>
+            </div>
+        </div>
+
+    </div>
+    <div id="footer">
+        <div id="hotncold">
+            <p id="hotNums">HOT:</p>
+            <p id="coldNums">COLD:</p>
+        </div>
+        <div id="footerCentral">
+            <div id="progressBar">
+                <div class="ProgressBar">
+                    <div class="ProgressBar-background"></div>
+                    <div class="ProgressBar-percentage" style="width: 30%"></div>
+                </div>
+            </div>
+            <div id="btnJugarYa">
+                <button id="jugarYa">JUGAR YA</button>
+            </div>
+        </div>
+        <div id="lastNumsDiv">
+            <p id="lastNumsTxt">ULTIMOS NUMEROS:</p>
+            <p id="ultimoNumero"></p>
+            <p id="lastNums"></p>
+        </div>
+    </div>
+    <div id="modalRetirar" class="modal">
+        <span class="close-button" onclick="closeModalRetirar()">&#10006;</span>
+        <p id="pRetirarFichas" class="pModal">Fichas a retirar</p>
+        <input id="inputRetirarFichas" class="inputModal" type="text" placeholder="Numero de fichas"/>
+        <div class="botonesModal">
+            <button class="botonModal" onclick="acceptRetirar()">Aceptar</button>
+            <button class="botonModal" onclick="closeModalRetirar()">Cancelar</button>
+        </div>
+    </div>
+    <div id="modal-overlayRetirar" class="modal-overlay"></div>
+
+    <div id="modalIngresar" class="modal">
+        <span class="close-button" onclick="closeModalIngresar()">&#10006;</span>
+        <p id="pIngresarFichas" class="pModal">Ingresar fichas</p>
+        <input id="inputIngresarFichas" class="inputModal" type="text" placeholder="Numero de fichas"/>
+        <div class="botonesModal">
+            <button class="botonModal" onclick="acceptIngresar()">Aceptar</button>
+            <button class="botonModal" onclick="closeModalIngresar()">Cancelar</button>
+        </div>
+    </div>
+    <div id="modal-overlayIngresar" class="modal-overlay"></div>
+    <script src="Ruleta.js"></script>
+</body>
+</html>
